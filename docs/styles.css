@@ -113,8 +113,7 @@ summary { cursor: pointer; color: var(--accent); }
 .guide-instruction { font-size: 14px; margin: 16px 0; color: #4d6062; }
 .guide-instruction strong { font-weight: 600; color: var(--ink); }
 .screenshot-scroll { overflow-x: auto; border: 1px solid var(--line); border-radius: 8px; background: white; overscroll-behavior-x: contain; }
-.guide-image { display: block; width: 100%; height: auto; }
-.tests-image { max-height: 465px; }
+.guide-image { display: block; width: 100%; height: auto; overflow: hidden; }
 .latest-image { max-height: 270px; }
 .annotations { fill: none; stroke: #d44a43; stroke-width: 3.5; }
 .annotation-label { fill: #d44a43; }
