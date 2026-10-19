@@ -73,7 +73,7 @@ function showError(error, focus) {
 function showEmpty(incomplete = false) {
   result.hidden = true;
   emptyResult.hidden = false;
-  $('#empty-title').textContent = incomplete ? 'The numbers aren’t numbering.' : 'Your grade is playing hide-and-seek.';
+  $('#empty-title').textContent = incomplete ? 'The numbers aren’t numbering.' : 'Your estimated grade goes here.';
   emptyResult.querySelector('p').textContent = incomplete ? 'Check the highlighted fields. Even Danny needs the right numbers.' : 'Feed me the numbers. I’ll do the annoying part.';
   $('#empty-example').hidden = incomplete;
   $('#result-announcement').textContent = '';
@@ -87,13 +87,6 @@ function renderResult(score, announce = true) {
   $('#weighted-total').textContent = `${fixed(score.weightedTotal)} / 80`;
   $('#weighted-homework').textContent = `${fixed(score.homework)} / 30`;
   $('#test-average').textContent = `${fixed(score.testAverage * 100)}%`;
-  const math = $('#math-explanation');
-  math.replaceChildren();
-  const steps = [
-    `Your overall grade gives ${fixed(score.weightedTotal)} weighted points out of 80. Subtract ${number(score.homework)} homework points, then divide by the 50-point test weight: ${fixed(score.testAverage * 100)}% for all tests.`,
-    `Multiply that average by ${number(score.allPossible)} total possible test points, then subtract ${number(score.pastEarned)} points already earned: (${fixed(score.testAverage * 100)}% × ${number(score.allPossible)}) − ${number(score.pastEarned)} = ${fixed(score.earned)} points on the latest test.`,
-  ];
-  for (const text of steps) { const paragraph = document.createElement('p'); paragraph.textContent = text; math.append(paragraph); }
   clearTimeout(announcementTimer);
   if (announce) announcementTimer = setTimeout(() => { $('#result-announcement').textContent = `Estimated test grade: ${fixed(score.percent)} percent. ${fixed(score.earned)} out of ${number(score.latestPossible)} points.`; }, 350);
 }

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Danny does the math so you don’t have to. Estimate your unreleased Pearson test grade with a calculator and aggressively circled screenshot instructions.">
+  <meta name="description" content="Danny does the math so you don’t have to. Estimate your unreleased Pearson test grade with a calculator and annotated screenshot instructions.">
   <meta name="theme-color" content="#146657">
   <title>Dannys Pearson Calculator</title>
   <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml">
@@ -16,9 +16,8 @@
     <div class="header-inner">
       <a class="brand" href="./" aria-label="Dannys Pearson Calculator home">
         <svg width="23" height="27" viewBox="0 0 23 27" fill="none" aria-hidden="true"><rect x="2" y="1.5" width="19" height="24" rx="3" stroke="currentColor" stroke-width="1.8"/><path d="M6 6h11v4H6z" stroke="currentColor" stroke-width="1.5"/><path d="M6 14h2m3 0h2m3 0h1M6 18h2m3 0h2m3 0h1M6 22h2m3 0h2m3 0h1" stroke="currentColor" stroke-width="1.8"/></svg>
-        <span>Dannys</span>
+        <span>Dannys Pearson Calculator</span>
       </a>
-      <span class="brand-description">Pearson Calculator</span>
       <a class="header-guide" href="#guide">Screenshot guide <span aria-hidden="true">↗</span></a>
     </div>
   </header>
@@ -63,9 +62,9 @@
             <span class="step-number" aria-hidden="true">3</span>
             <div class="step-content">
               <div class="field-heading"><h3>Past tests</h3><button type="button" class="help-button" data-help="tests" aria-label="Where to find past test scores">Where to find it <span aria-hidden="true">↗</span></button></div>
-              <p class="field-hint past-hint" id="past-hint">Add each already-graded test. First test? Leave this blank.</p>
+              <p class="field-hint past-hint" id="past-hint">Add each already-graded test. Leave this blank if its your first test.</p>
               <div id="past-tests"></div>
-              <button class="text-button add-test" id="add-test" type="button"><span aria-hidden="true">＋</span> Add another test (oof)</button>
+              <button class="text-button add-test" id="add-test" type="button"><span aria-hidden="true">＋</span> Add another test</button>
             </div>
           </div>
 
@@ -80,14 +79,14 @@
           </div>
 
           <div class="form-error" id="form-error" role="alert" hidden></div>
-          <button class="calculate-button" type="submit">Calculate my damn grade <span aria-hidden="true">→</span></button>
+          <button class="calculate-button" type="submit">Calculate my grade (Good luck!) <span aria-hidden="true">→</span></button>
         </form>
       </section>
 
       <section class="result-panel" id="result-panel" aria-labelledby="result-title" tabindex="-1">
         <div class="empty-result" id="empty-result">
           <span class="empty-mark" aria-hidden="true">—<span>%</span></span>
-          <h2 id="empty-title">Your grade is playing hide-and-seek.</h2>
+          <h2 id="empty-title">Your estimated grade goes here.</h2>
           <p>Feed me the numbers. I’ll do the annoying part.</p>
           <button class="text-button" id="empty-example" type="button">See Danny’s example <span aria-hidden="true">→</span></button>
         </div>
@@ -100,17 +99,13 @@
             <div><dt>Homework contribution</dt><dd id="weighted-homework"></dd></div>
             <div><dt>Combined test average</dt><dd id="test-average"></dd></div>
           </dl>
-          <p class="estimate-note">An estimate, not a prophecy. Your displayed overall grade may be rounded, and an unreleased score may still change.</p>
-          <details class="math-details"><summary>Show me Danny’s formula</summary><div id="math-explanation"></div></details>
-          <p class="updated-note" id="updated-note">Tweak a number. Watch the math do its thing.</p>
         </div>
-        <p class="method-note">For courses with homework worth 30 points and tests worth 50. Tests are combined by total points. Your overall grade must already include the unreleased test.</p>
       </section>
     </div>
     <p class="sr-only" id="result-announcement" role="status" aria-live="polite" aria-atomic="true"></p>
 
     <section class="guide" id="guide" aria-labelledby="guide-title">
-      <div class="guide-heading"><h2 id="guide-title">Where the hell are these numbers?</h2><span>Actual screenshots. Aggressive circling.</span></div>
+      <div class="guide-heading"><h2 id="guide-title">Where the heck are these numbers?</h2><span>Actual screenshots.</span></div>
       <div class="guide-tabs" role="tablist" aria-label="Gradebook screenshot guides">
         <button role="tab" id="tab-overview" aria-selected="true" aria-controls="guide-overview" data-guide="overview">Overall &amp; homework</button>
         <button role="tab" id="tab-tests" aria-selected="false" aria-controls="guide-tests" tabindex="-1" data-guide="tests">Past tests</button>
@@ -159,11 +154,10 @@
         </figure>
         <p class="swipe-hint">Swipe across the screenshot to see both test sections.</p>
       </div>
-      <details class="setup-note"><summary>Will this work for my class, or am I cooked?</summary><p>This version uses the setup in the screenshots: homework contributes up to 30 points, tests contribute up to 50, and the overall grade is out of 80 weighted points. All tests in the category must be combined by total earned / possible points. Include every released test and solve for only one remaining test (or its combined sections). Other weighted categories or a test that hasn’t been included in the overall grade will change the calculation. Danny is good, but he needs the right numbers.</p></details>
     </section>
   </main>
 
-  <footer class="site-footer"><span>Your grades stay in your browser. Your secrets are safe.</span><span>Not affiliated with Pearson. They didn’t ask for this.</span><a href="https://github.com/Danielw412/Pearson-grade-calculator" target="_blank" rel="noopener noreferrer">View source <span aria-hidden="true">↗</span></a></footer>
+  <footer class="site-footer"><span>Your grades stay in your browser. Your secrets are safe.</span><span>Not affiliated with Pearson.</span><a href="https://github.com/Danielw412/Pearson-grade-calculator" target="_blank" rel="noopener noreferrer">View source <span aria-hidden="true">↗</span></a></footer>
 
   <dialog id="help-dialog" aria-labelledby="help-title" aria-describedby="help-description">
     <div class="dialog-heading"><h2 id="help-title"></h2><button type="button" class="close-button" id="close-help" aria-label="Close screenshot guide">×</button></div>
