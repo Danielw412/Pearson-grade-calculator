@@ -1,0 +1,9 @@
+{
+  "name": "dannys-pearson-calculator",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test tests/*.test.mjs",
+    "start": "python3 -m http.server 5173 --directory docs --bind 0.0.0.0"
+  }
+}

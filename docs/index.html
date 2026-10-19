@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Danny does the math so you don’t have to. Estimate your unreleased Pearson test grade with a calculator and aggressively circled screenshot instructions.">
+  <meta name="theme-color" content="#146657">
+  <title>Dannys Pearson Calculator</title>
+  <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./styles.css">
+  <script type="module" src="./app.mjs"></script>
+</head>
+<body>
+  <a class="skip-link" href="#calculator">Skip to calculator</a>
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="./" aria-label="Dannys Pearson Calculator home">
+        <svg width="23" height="27" viewBox="0 0 23 27" fill="none" aria-hidden="true"><rect x="2" y="1.5" width="19" height="24" rx="3" stroke="currentColor" stroke-width="1.8"/><path d="M6 6h11v4H6z" stroke="currentColor" stroke-width="1.5"/><path d="M6 14h2m3 0h2m3 0h1M6 18h2m3 0h2m3 0h1M6 22h2m3 0h2m3 0h1" stroke="currentColor" stroke-width="1.8"/></svg>
+        <span>Dannys</span>
+      </a>
+      <span class="brand-description">Pearson Calculator</span>
+      <a class="header-guide" href="#guide">Screenshot guide <span aria-hidden="true">↗</span></a>
+    </div>
+  </header>
+
+  <main class="page">
+    <section class="intro" aria-labelledby="page-title">
+      <h1 id="page-title">Dannys Pearson Calculator</h1>
+      <div class="intro-bottom">
+        <p>Made because your lazy ass dont want to figure out my formula</p>
+        <button class="text-button example-button" id="try-example" type="button">Try Danny’s numbers <span aria-hidden="true">→</span></button>
+      </div>
+    </section>
+
+    <div class="workspace" id="calculator">
+      <section class="form-panel" aria-labelledby="form-title">
+        <div class="panel-heading">
+          <div><h2 id="form-title">Hand over the numbers.</h2><p>Homework: 30 pts <span aria-hidden="true">·</span> Tests: 50 pts</p></div>
+          <button class="text-button reset-button" id="reset" type="button">Start over</button>
+        </div>
+        <form id="grade-form" novalidate>
+          <div class="form-step">
+            <span class="step-number" aria-hidden="true">1</span>
+            <div class="step-content">
+              <div class="field-heading"><label for="overall">Overall grade</label><button type="button" class="help-button" data-help="overall" aria-label="Where to find your overall grade">Where to find it <span aria-hidden="true">↗</span></button></div>
+              <div class="input-unit"><input id="overall" name="overall" type="number" inputmode="decimal" min="0" max="100" step="any" placeholder="e.g. 93.25" aria-describedby="overall-hint overall-error" required><span aria-hidden="true">%</span></div>
+              <p class="field-hint" id="overall-hint">Copy the percentage next to <strong>Overall Score</strong>.</p>
+              <p class="field-error" id="overall-error" hidden></p>
+            </div>
+          </div>
+
+          <div class="form-step">
+            <span class="step-number" aria-hidden="true">2</span>
+            <div class="step-content">
+              <div class="field-heading"><label for="homework">Homework points earned</label><button type="button" class="help-button" data-help="homework" aria-label="Where to find homework points">Where to find it <span aria-hidden="true">↗</span></button></div>
+              <div class="input-unit"><input id="homework" name="homework" type="number" inputmode="decimal" min="0" max="30" step="any" placeholder="e.g. 30" aria-describedby="homework-hint homework-error" required><span aria-hidden="true">/ 30</span></div>
+              <p class="field-hint" id="homework-hint"><strong>Student Gradebook → Calculation</strong>, then Homework → <strong>Points Earned</strong> (out of 30).</p>
+              <p class="field-error" id="homework-error" hidden></p>
+            </div>
+          </div>
+
+          <div class="form-step">
+            <span class="step-number" aria-hidden="true">3</span>
+            <div class="step-content">
+              <div class="field-heading"><h3>Past tests</h3><button type="button" class="help-button" data-help="tests" aria-label="Where to find past test scores">Where to find it <span aria-hidden="true">↗</span></button></div>
+              <p class="field-hint past-hint" id="past-hint">Add each already-graded test. First test? Leave this blank.</p>
+              <div id="past-tests"></div>
+              <button class="text-button add-test" id="add-test" type="button"><span aria-hidden="true">＋</span> Add another test (oof)</button>
+            </div>
+          </div>
+
+          <div class="form-step">
+            <span class="step-number" aria-hidden="true">4</span>
+            <div class="step-content">
+              <div class="field-heading"><label for="latest">Latest test total points</label><button type="button" class="help-button" data-help="latest" aria-label="How to find the latest test total">Where to find it <span aria-hidden="true">↗</span></button></div>
+              <div class="input-unit"><input id="latest" name="latest" type="number" inputmode="decimal" min="0" step="any" placeholder="e.g. 71" aria-describedby="latest-hint latest-error" required><span aria-hidden="true">pts</span></div>
+              <p class="field-hint" id="latest-hint">Maximum points for this test. For a split test, add both sections together.</p>
+              <p class="field-error" id="latest-error" hidden></p>
+            </div>
+          </div>
+
+          <div class="form-error" id="form-error" role="alert" hidden></div>
+          <button class="calculate-button" type="submit">Calculate my damn grade <span aria-hidden="true">→</span></button>
+        </form>
+      </section>
+
+      <section class="result-panel" id="result-panel" aria-labelledby="result-title" tabindex="-1">
+        <div class="empty-result" id="empty-result">
+          <span class="empty-mark" aria-hidden="true">—<span>%</span></span>
+          <h2 id="empty-title">Your grade is playing hide-and-seek.</h2>
+          <p>Feed me the numbers. I’ll do the annoying part.</p>
+          <button class="text-button" id="empty-example" type="button">See Danny’s example <span aria-hidden="true">→</span></button>
+        </div>
+        <div id="result" hidden>
+          <h2 id="result-title">Your estimated score</h2>
+          <p class="score" id="result-percent"></p>
+          <p class="score-points" id="result-points"></p>
+          <dl class="breakdown">
+            <div><dt>Overall weighted points</dt><dd id="weighted-total"></dd></div>
+            <div><dt>Homework contribution</dt><dd id="weighted-homework"></dd></div>
+            <div><dt>Combined test average</dt><dd id="test-average"></dd></div>
+          </dl>
+          <p class="estimate-note">An estimate, not a prophecy. Your displayed overall grade may be rounded, and an unreleased score may still change.</p>
+          <details class="math-details"><summary>Show me Danny’s formula</summary><div id="math-explanation"></div></details>
+          <p class="updated-note" id="updated-note">Tweak a number. Watch the math do its thing.</p>
+        </div>
+        <p class="method-note">For courses with homework worth 30 points and tests worth 50. Tests are combined by total points. Your overall grade must already include the unreleased test.</p>
+      </section>
+    </div>
+    <p class="sr-only" id="result-announcement" role="status" aria-live="polite" aria-atomic="true"></p>
+
+    <section class="guide" id="guide" aria-labelledby="guide-title">
+      <div class="guide-heading"><h2 id="guide-title">Where the hell are these numbers?</h2><span>Actual screenshots. Aggressive circling.</span></div>
+      <div class="guide-tabs" role="tablist" aria-label="Gradebook screenshot guides">
+        <button role="tab" id="tab-overview" aria-selected="true" aria-controls="guide-overview" data-guide="overview">Overall &amp; homework</button>
+        <button role="tab" id="tab-tests" aria-selected="false" aria-controls="guide-tests" tabindex="-1" data-guide="tests">Past tests</button>
+        <button role="tab" id="tab-latest" aria-selected="false" aria-controls="guide-latest" tabindex="-1" data-guide="latest">Latest test</button>
+      </div>
+      <div class="guide-panel" role="tabpanel" id="guide-overview" aria-labelledby="tab-overview" tabindex="0">
+        <p class="guide-instruction">Open <strong>Student Gradebook</strong>. Click <strong>Calculation</strong> below Overall Score to reveal the category table.</p>
+        <figure>
+          <div class="screenshot-scroll" tabindex="0" aria-label="Annotated gradebook screenshot. Scroll horizontally on small screens.">
+            <svg class="guide-image overview-image" viewBox="45 103 1350 500" role="img" aria-labelledby="overview-image-title overview-image-desc">
+              <title id="overview-image-title">Overall grade and weighted homework points</title><desc id="overview-image-desc">The Overall Score 93.25 is circled as input 1. The Calculation link is circled with a Click label. In the expanded table, Homework Points Earned 30.00 pts is circled as input 2. Use 30.00, not the Category Scores 80/80.</desc>
+              <image href="./assets/gradebook-overview.png" width="1437" height="680"/>
+              <g class="annotations"><ellipse cx="132" cy="231" rx="49" ry="31"/><ellipse cx="284" cy="254" rx="73" ry="22"/><ellipse cx="1043" cy="431" rx="76" ry="24"/></g>
+              <g class="annotation-label"><circle cx="200" cy="201" r="18"/><text x="200" y="202">1</text><circle cx="1144" cy="430" r="18"/><text x="1144" y="431">2</text><rect x="366" y="235" width="69" height="35" rx="17"/><text x="400" y="254">Click</text></g>
+            </svg>
+          </div>
+          <figcaption><span><b class="caption-number">1</b> <strong>Overall grade:</strong> enter <strong>93.25</strong>.</span><span><b class="caption-number">2</b> <strong>Homework:</strong> enter <strong>30</strong> from Points Earned. The raw 80/80 is a different value.</span></figcaption>
+        </figure>
+        <p class="swipe-hint">Swipe across the screenshot to see all the circled values.</p>
+      </div>
+      <div class="guide-panel" role="tabpanel" id="guide-tests" aria-labelledby="tab-tests" tabindex="0" hidden>
+        <p class="guide-instruction">In <strong>Student Gradebook</strong>, find each past test with a released score. Copy the two numbers under <strong>Correct/Total</strong>.</p>
+        <figure>
+          <div class="screenshot-scroll" tabindex="0" aria-label="Annotated past tests screenshot. Scroll horizontally on small screens.">
+            <svg class="guide-image tests-image" viewBox="32 0 820 545" role="img" aria-labelledby="tests-image-title tests-image-desc">
+              <title id="tests-image-title">Past test points under Correct/Total</title><desc id="tests-image-desc">The Test 1.1 to 1.4 score 84.2/96 is circled as input 3. Enter 84.2 as points earned and 96 as points possible. The 87.71 percent column is not used.</desc>
+              <image href="./assets/gradebook-tests.png" width="1401" height="889"/>
+              <g class="annotations"><ellipse cx="599" cy="485" rx="64" ry="26"/></g><g class="annotation-label"><circle cx="687" cy="484" r="18"/><text x="687" y="485">3</text></g>
+            </svg>
+          </div>
+          <figcaption><span><b class="caption-number">3</b> Enter <strong>84.2</strong> in Points earned and <strong>96</strong> in Out of.</span><span>Add every already-graded test. Use the point values, rather than the percentage column.</span></figcaption>
+        </figure>
+        <p class="swipe-hint">Swipe across the screenshot to see all the circled values.</p>
+      </div>
+      <div class="guide-panel" role="tabpanel" id="guide-latest" aria-labelledby="tab-latest" tabindex="0" hidden>
+        <p class="guide-instruction">Use the <strong>total possible points</strong> from your test or your teacher’s instructions. This number isn’t visible in the gradebook screenshot while the score is hidden.</p>
+        <figure>
+          <div class="screenshot-scroll" tabindex="0" aria-label="Annotated screenshot of the two unreleased test sections.">
+            <svg class="guide-image latest-image" viewBox="32 0 820 186" role="img" aria-labelledby="latest-image-title latest-image-desc">
+              <title id="latest-image-title">Two sections of the unreleased test</title><desc id="latest-image-desc">Test 1.5 to 1.8 No calculator and Test 1.5 to 1.8 Calculator are circled together as input 4. Both have hidden scores. Add their maximum points together. In this example the combined test was worth 71 points.</desc>
+              <image href="./assets/gradebook-tests.png" width="1401" height="889"/>
+              <g class="annotations"><ellipse cx="243" cy="92" rx="197" ry="77"/></g><g class="annotation-label"><circle cx="465" cy="91" r="18"/><text x="465" y="92">4</text></g>
+            </svg>
+          </div>
+          <figcaption><span><b class="caption-number">4</b> These two sections make one test. Add their maximum points together.</span><span>The combined total in our example is <strong>71</strong>. The calculator estimates the combined score.</span></figcaption>
+        </figure>
+        <p class="swipe-hint">Swipe across the screenshot to see both test sections.</p>
+      </div>
+      <details class="setup-note"><summary>Will this work for my class, or am I cooked?</summary><p>This version uses the setup in the screenshots: homework contributes up to 30 points, tests contribute up to 50, and the overall grade is out of 80 weighted points. All tests in the category must be combined by total earned / possible points. Include every released test and solve for only one remaining test (or its combined sections). Other weighted categories or a test that hasn’t been included in the overall grade will change the calculation. Danny is good, but he needs the right numbers.</p></details>
+    </section>
+  </main>
+
+  <footer class="site-footer"><span>Your grades stay in your browser. Your secrets are safe.</span><span>Not affiliated with Pearson. They didn’t ask for this.</span><a href="https://github.com/Danielw412/Pearson-grade-calculator" target="_blank" rel="noopener noreferrer">View source <span aria-hidden="true">↗</span></a></footer>
+
+  <dialog id="help-dialog" aria-labelledby="help-title" aria-describedby="help-description">
+    <div class="dialog-heading"><h2 id="help-title"></h2><button type="button" class="close-button" id="close-help" aria-label="Close screenshot guide">×</button></div>
+    <div class="dialog-body"><p id="help-description"></p><div class="dialog-image" id="help-image"></div><p class="dialog-caption" id="help-caption"></p><p class="swipe-hint">Swipe across the screenshot for a closer look.</p></div>
+    <div class="dialog-footer"><button class="secondary-button" type="button" id="got-it">Got it</button></div>
+  </dialog>
+  <noscript><p class="noscript">Please enable JavaScript to calculate your grade. You can still use the screenshot guide above.</p></noscript>
+</body>
+</html>
