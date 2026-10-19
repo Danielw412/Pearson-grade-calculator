@@ -20,7 +20,7 @@ function addTest(earned = '', possible = '', focus = false) {
   row.dataset.id = id;
   row.innerHTML = `<div class="past-test-inputs">
     <div><label for="test-${id}-earned">Points earned</label><input id="test-${id}-earned" name="test-${id}-earned" type="number" inputmode="decimal" min="0" step="any" placeholder="e.g. 84.2" aria-describedby="past-hint test-${id}-error"></div>
-    <div><label for="test-${id}-possible">Out of</label><input id="test-${id}-possible" name="test-${id}-possible" type="number" inputmode="decimal" min="0" step="any" placeholder="e.g. 96" aria-describedby="past-hint test-${id}-error"></div>
+    <div><label for="test-${id}-possible">Out of</label><input id="test-${id}-possible" name="test-${id}-possible" type="number" inputmode="decimal" min="0" max="1000" step="any" placeholder="e.g. 96" aria-describedby="past-hint test-${id}-error"></div>
     <button class="remove-test" type="button" aria-label="Remove past test">×</button>
     </div><p class="field-error" id="test-${id}-error" hidden></p>`;
   pastTests.append(row);
